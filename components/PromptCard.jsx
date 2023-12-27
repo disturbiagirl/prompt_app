@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
@@ -24,21 +25,29 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-5">
         <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
-          <Image
-            src={
-              post.creator?.image
-                ? post.creator.image
-                : "/assets/images/logo.svg"
-            }
-            alt="user_image"
-            width={40}
-            height={40}
-            className="rounded-full object-contain"
-          />
+          <Link
+            href={`/profile/${post.creator?._id}/name=${post.creator?.username}`}
+          >
+            <Image
+              src={
+                post.creator?.image
+                  ? post.creator.image
+                  : "/assets/images/logo.svg"
+              }
+              alt="user_image"
+              width={40}
+              height={40}
+              className="rounded-full object-contain"
+            />
+          </Link>
           <div className="flex flex-col">
-            <h3 className="font-satoshi font-semibold text-gray-900">
-              {post.creator?.username ? post.creator.username : "Unknown"}
-            </h3>
+            <Link
+              href={`/profile/${post.creator?._id}/name=${post.creator?.username}`}
+            >
+              <h3 className="font-satoshi font-semibold text-gray-900">
+                {post.creator?.username ? post.creator.username : "Unknown"}
+              </h3>
+            </Link>
             <p className="font-inter text-sm text-gray-500">
               {post.creator?.email}
             </p>
